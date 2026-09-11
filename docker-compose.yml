@@ -1,0 +1,70 @@
+version: '3.8'
+
+services:
+  # FastAPI backend
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: unified-backend-api
+    ports:
+      - "8000:8000"
+    environment:
+      - DYNAMODB_ENDPOINT=http://dynamodb-local:8000
+      - DYNAMODB_WORKFLOWS_TABLE=unified-backend-workflows
+      - DYNAMODB_EXECUTIONS_TABLE=unified-backend-executions
+      - DYNAMODB_AUDIT_TABLE=unified-backend-audit
+      - DYNAMODB_TEMPLATES_TABLE=unified-backend-templates
+      - UPSTASH_REDIS_URL=redis://redis:6379
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:3001
+      - LOG_LEVEL=INFO
+      - ENVIRONMENT=development
+    volumes:
+      - ./app:/app/app
+      - ./lambda_handler.py:/app/lambda_handler.py
+    depends_on:
+      - dynamodb-local
+      - redis
+    command: >
+      sh -c "pip install -r requirements.txt &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+
+  # Local DynamoDB
+  dynamodb-local:
+    image: amazon/dynamodb-local:latest
+    container_name: dynamodb-local
+    ports:
+      - "8001:8000"
+    environment:
+      - AWS_ACCESS_KEY_ID=local
+      - AWS_SECRET_ACCESS_KEY=local
+      - AWS_DEFAULT_REGION=us-east-2
+    command: -jar DynamoDBLocal.jar -inMemory -port 8000
+
+  # Redis for caching
+  redis:
+    image: redis:7-alpine
+    container_name: redis-local
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+  # Optional: DynamoDB Admin UI
+  dynamodb-admin:
+    image: aaronshaf/dynamodb-admin:latest
+    container_name: dynamodb-admin
+    ports:
+      - "8002:8001"
+    environment:
+      DYNAMO_ENDPOINT: http://dynamodb-local:8000
+    depends_on:
+      - dynamodb-local
+
+volumes:
+  redis_data:
+
+networks:
+  default:
+    name: unified-backend-network
