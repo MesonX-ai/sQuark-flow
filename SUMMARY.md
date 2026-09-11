@@ -328,7 +328,7 @@ curl $(terraform output -raw api_endpoint)/health
 # Integrate with projects
 cat docs/INTEGRATE_MYFAMILY.md
 cat docs/INTEGRATE_SQUARK_AI.md
-cat docs/INTEGRATE_SQUARK.md
+cat docs/INTEGRATE_SQUARK_BROWSER.md
 ```
 
 ---

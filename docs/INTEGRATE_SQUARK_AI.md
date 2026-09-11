@@ -1,8 +1,8 @@
 # 🤖 Integrate Unified Backend with sQuark.ai
 
 **Project**: sQuark.ai (Next.js 15 + React Flow)  
-**Frontend Type**: AI orchestration platform  
-**Integration Pattern**: React Flow canvas to backend  
+**Frontend Type**: Web application with workflow canvas  
+**Integration Pattern**: Direct API calls with React Flow canvas  
 **Estimated Time**: 15-20 minutes
 
 ---

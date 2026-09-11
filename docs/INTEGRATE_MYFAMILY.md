@@ -1,8 +1,8 @@
-# 🏠 Integrate Unified Backend with myfamilyassistant
+# 🏠 Integrate Unified Backend with MyFamilyAssistant.ai
 
-**Project**: myfamilyassistant (Next.js 14 + React Flow)  
-**Frontend Type**: Web application  
-**Integration Pattern**: Direct API calls  
+**Project**: MyFamilyAssistant.ai (Next.js 14 + React Flow)  
+**Frontend Type**: Web application with workflow canvas  
+**Integration Pattern**: Direct API calls to AWS backend  
 **Estimated Time**: 15-20 minutes
 
 ---
@@ -19,7 +19,7 @@
 ## Step 1: Get Your API Endpoint
 
 ```bash
-cd /Users/mesonx/MY\ LAB/unified-backend-complete/terraform
+cd /Users/mesonx/MY\ LAB/sQuark-flow/terraform
 
 # Save this output - you'll need it
 terraform output -raw api_endpoint

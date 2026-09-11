@@ -11,9 +11,9 @@
 ## 📋 What's Included
 
 This is a **complete, production-ready unified backend** serving three frontend projects:
-- myfamilyassistant
-- sQuark.ai
-- sQuark Web
+- **MyFamilyAssistant.ai** - Web app with React Flow canvas
+- **sQuark.ai** - Web app with React Flow canvas
+- **sQuark AI Browser** - Desktop app (PyQt)
 
 ### Backend Architecture
 ```
@@ -172,9 +172,9 @@ unified-backend-complete/
 ├── docker-compose.yml             # Local dev environment
 │
 ├── docs/                          # Documentation
-│   ├── INTEGRATE_MYFAMILY.md     # myfamilyassistant integration
+│   ├── INTEGRATE_MYFAMILY.md     # MyFamilyAssistant.ai integration
 │   ├── INTEGRATE_SQUARK_AI.md    # sQuark.ai integration
-│   └── INTEGRATE_SQUARK.md       # sQuark web integration
+│   └── INTEGRATE_SQUARK_BROWSER.md # sQuark AI Browser integration
 │
 ├── .env.template                  # Environment variables
 ├── .gitignore                     # Git excludes
@@ -378,20 +378,23 @@ uvicorn app.main:app --reload --port 8000
 
 Complete integration docs for each project:
 
-1. **[myfamilyassistant Integration](docs/INTEGRATE_MYFAMILY.md)**
+1. **[MyFamilyAssistant.ai Integration](docs/INTEGRATE_MYFAMILY.md)**
    - Next.js 14 + React Flow canvas
-   - 10-step integration guide
+   - Direct API calls to AWS backend
+   - Real-time streaming with React hooks
    - Code examples included
 
 2. **[sQuark.ai Integration](docs/INTEGRATE_SQUARK_AI.md)**
-   - Next.js 15 + React Flow
-   - Canvas workflow builder
-   - Real-time streaming
+   - Next.js 15 + React Flow canvas
+   - Canvas workflow builder with backend sync
+   - Real-time execution streaming
+   - TypeScript integration
 
-3. **[sQuark Web Integration](docs/INTEGRATE_SQUARK.md)**
-   - FastAPI proxy pattern
-   - React component library
+3. **[sQuark AI Browser Integration](docs/INTEGRATE_SQUARK_BROWSER.md)**
+   - PyQt desktop application
+   - Direct Python HTTP calls to AWS backend
    - Execution history tracking
+   - Python SDK provided
 
 ---
 
