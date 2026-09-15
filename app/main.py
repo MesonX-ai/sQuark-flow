@@ -6,15 +6,8 @@ import logging
 import os
 from typing import Optional
 
-# Import costs router (always required)
-from .routers import costs
-
-# Try to import heavy routers (not available in Lambda minimal build)
-try:
-    from .routers import workflows, executions, agents
-    WORKFLOWS_AVAILABLE = True
-except ImportError:
-    WORKFLOWS_AVAILABLE = False
+# Import routers (with graceful fallback for missing heavy dependencies)
+from .routers import costs, workflows, executions, agents
 
 # Configure logging
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
@@ -31,7 +24,7 @@ CORS_ORIGINS = os.getenv(
 async def lifespan(app: FastAPI):
     """Application lifespan handler."""
     logger.info("🚀 Unified Agentic Backend starting...")
-    if not WORKFLOWS_AVAILABLE:
+    if workflows is None:
         logger.warning("⚠️  Workflow routers not available (Lambda minimal build)")
     yield
     logger.info("🛑 Unified Agentic Backend shutting down...")
@@ -55,9 +48,11 @@ app.add_middleware(
 )
 
 # Include routers
-if WORKFLOWS_AVAILABLE:
+if workflows is not None:
     app.include_router(workflows.router)
+if executions is not None:
     app.include_router(executions.router)
+if agents is not None:
     app.include_router(agents.router)
 # Always include costs router
 app.include_router(costs.router)
@@ -69,7 +64,7 @@ async def root():
     endpoints = {
         "costs": "/api/v1/costs",
     }
-    if WORKFLOWS_AVAILABLE:
+    if workflows is not None:
         endpoints.update({
             "workflows": "/api/v1/workflows",
             "executions": "/api/v1/executions",
