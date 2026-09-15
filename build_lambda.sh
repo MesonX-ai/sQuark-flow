@@ -29,14 +29,15 @@ if ! command -v $PYTHON_CMD &> /dev/null; then
     PYTHON_CMD="python3"
 fi
 
-# Install using get-pip approach for manylinux
+# Install dependencies using correct platform flags for Lambda compatibility
+echo "Installing for manylinux2014_aarch64 platform (AWS Lambda)..."
 $PYTHON_CMD -m pip install \
-  --upgrade pip \
-  --quiet
-
-$PYTHON_CMD -m pip install \
+  --platform manylinux2014_aarch64 \
   --target=build \
-  --quiet \
+  --implementation cp \
+  --python-version 3.12 \
+  --only-binary=:all: \
+  --no-cache-dir \
   -r "$REQS_FILE"
 
 # Copy application code
