@@ -23,7 +23,7 @@ if [ ! -f "$REQS_FILE" ]; then
     REQS_FILE="requirements.txt"
 fi
 echo "Using requirements file: $REQS_FILE"
-python3 -m pip install --only-binary=:all: \
+python3 -m pip install \
   --platform manylinux2014_aarch64 \
   --target=build \
   --implementation cp \
