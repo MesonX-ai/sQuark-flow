@@ -16,7 +16,7 @@ mkdir -p build
 
 # Install dependencies for arm64 (Lambda runs on ARM)
 echo "📥 Installing dependencies for Lambda (arm64)..."
-pip install \
+python3 -m pip install \
   --platform manylinux2014_aarch64 \
   --target=build \
   --implementation cp \

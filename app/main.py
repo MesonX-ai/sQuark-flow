@@ -7,7 +7,7 @@ import os
 from typing import Optional
 
 # Import routers
-from .routers import workflows, executions, agents
+from .routers import workflows, executions, agents, costs
 
 # Configure logging
 logging.basicConfig(level=os.getenv("LOG_LEVEL", "INFO"))
@@ -49,6 +49,7 @@ app.add_middleware(
 app.include_router(workflows.router)
 app.include_router(executions.router)
 app.include_router(agents.router)
+app.include_router(costs.router)
 
 
 @app.get("/")

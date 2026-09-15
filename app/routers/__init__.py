@@ -1,4 +1,4 @@
 """Routers package."""
-from . import workflows, executions, agents
+from . import workflows, executions, agents, costs
 
-__all__ = ["workflows", "executions", "agents"]
+__all__ = ["workflows", "executions", "agents", "costs"]
