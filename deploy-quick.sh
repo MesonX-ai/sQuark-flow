@@ -55,7 +55,7 @@ log_section "Quick Terraform Apply"
 cd "$PROJECT_ROOT/terraform"
 
 # Plan
-terraform plan -out=tfplan -auto-approve
+terraform plan -out=tfplan
 
 # Apply
 terraform apply tfplan
