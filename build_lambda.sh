@@ -23,11 +23,20 @@ if [ ! -f "$REQS_FILE" ]; then
     REQS_FILE="requirements.txt"
 fi
 echo "Using requirements file: $REQS_FILE"
-python3 -m pip install --only-binary=:all: \
-  --platform manylinux2014_aarch64 \
+# Try using Python 3.12 directly if available
+PYTHON_CMD="python3.12"
+if ! command -v $PYTHON_CMD &> /dev/null; then
+    PYTHON_CMD="python3"
+fi
+
+# Install using get-pip approach for manylinux
+$PYTHON_CMD -m pip install \
+  --upgrade pip \
+  --quiet
+
+$PYTHON_CMD -m pip install \
   --target=build \
-  --implementation cp \
-  --python-version 3.12 \
+  --quiet \
   -r "$REQS_FILE"
 
 # Copy application code
