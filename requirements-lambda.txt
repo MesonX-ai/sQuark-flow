@@ -1,0 +1,35 @@
+# Minimal Lambda Requirements - Cost Explorer API Focus
+# This is an optimized version for AWS Lambda with size constraints
+# See requirements-full.txt for the complete development requirements
+
+# Web Framework
+fastapi==0.115.0
+uvicorn==0.30.0
+python-multipart==0.0.9
+
+# Data Validation
+pydantic==2.8.2
+
+# AWS Integration
+boto3==1.40.46
+aws-lambda-powertools==2.38.0
+
+# Lambda Runtime
+mangum==0.17.0
+
+# Logging & Monitoring  
+python-json-logger==2.0.7
+structlog==24.1.0
+
+# Optional: Keep these for workflow support when using Lambda layers
+# langgraph==0.1.4
+# langchain-core==0.2.23
+# langsmith==0.1.104
+# httpx==0.27.0
+# aiofiles==23.2.1
+# redis==5.0.1
+# upstash-redis==1.8.0
+# openai==1.38.0
+# anthropic==0.28.0
+# langchain==0.2.6
+# gunicorn==21.2.0

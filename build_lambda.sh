@@ -16,13 +16,20 @@ mkdir -p build
 
 # Install dependencies for arm64 (Lambda runs on ARM)
 echo "📥 Installing dependencies for Lambda (arm64)..."
+# Use minimal requirements for Lambda size constraints (50MB limit)
+# Use requirements-lambda.txt if it exists, otherwise fall back to requirements.txt
+REQS_FILE="requirements-lambda.txt"
+if [ ! -f "$REQS_FILE" ]; then
+    REQS_FILE="requirements.txt"
+fi
+echo "Using requirements file: $REQS_FILE"
 python3 -m pip install \
   --platform manylinux2014_aarch64 \
   --target=build \
   --implementation cp \
   --python-version 3.12 \
   --only-binary=:all: \
-  -r requirements.txt
+  -r "$REQS_FILE"
 
 # Copy application code
 echo "📄 Copying application code..."
